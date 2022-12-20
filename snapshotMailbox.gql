@@ -1,0 +1,7 @@
+mutation snapshotMailbox($mailboxIds: [UUID!]!) {
+  objects: backupO365Mailbox(mailboxIds: $mailboxIds) {
+    jobIds {
+      jobId
+    }
+  }
+}

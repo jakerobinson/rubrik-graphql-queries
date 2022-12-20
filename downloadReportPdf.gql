@@ -1,0 +1,6 @@
+mutation downloadReportPdf($id: Int!) {
+  objects: downloadFile(fileType: PDF, reportID: $id) {
+    jobId
+    referenceId
+  }
+}

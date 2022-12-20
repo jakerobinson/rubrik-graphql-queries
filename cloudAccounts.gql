@@ -1,0 +1,6 @@
+query cloudAccounts {
+  objects: allCloudAccounts(features: []) {
+    name
+    cloudProvider
+  }
+}

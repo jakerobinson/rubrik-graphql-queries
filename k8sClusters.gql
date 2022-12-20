@@ -1,0 +1,11 @@
+query jakesk8scluster($name: [String!]!) {
+  objects: k8sClusters(filter: {field: NAME texts: $name}) {
+    nodes {
+      name
+      id
+      configuredSlaDomain {
+        name
+      }
+    }
+  }
+}

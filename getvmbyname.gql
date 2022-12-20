@@ -1,0 +1,9 @@
+query getVMs($name: [String!]!) {
+  objects: vSphereVmNewConnection(filter: [{field: NAME, texts: $name}]) {
+    nodes {
+      name
+      id
+      cluster {name, id}
+    }
+  }
+}

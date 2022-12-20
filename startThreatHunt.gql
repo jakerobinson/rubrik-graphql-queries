@@ -1,0 +1,23 @@
+mutation startThreatHunt(
+  $clusterUuid: UUID!, 
+  $objectFids: [UUID!]!, 
+  $name: String!, 
+  $iocKind: IndicatorOfCompromiseKind!, 
+  $iocValue: String!
+  ) {
+  objects: startThreatHunt (
+    input: { 
+      clusterUuid: $clusterUuid
+      objectFids: $objectFids
+      name: $name
+      indicatorsOfCompromise: {
+        iocKind: $iocKind
+        iocValue: $iocValue
+      }
+    }
+  ){
+    huntStatus {
+      id
+    }
+  }
+}

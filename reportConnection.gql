@@ -1,0 +1,8 @@
+query reportConnection {
+  objects: reportConnection {
+    nodes {
+      name
+      id
+    }
+  }
+}

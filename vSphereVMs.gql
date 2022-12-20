@@ -1,0 +1,7 @@
+query vsphereVMs {
+  objects: vSphereVmNewConnection {
+    nodes {
+      name
+    }
+  }
+}

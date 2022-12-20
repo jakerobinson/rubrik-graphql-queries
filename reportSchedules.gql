@@ -1,0 +1,14 @@
+query reportSchedules($reportId: Int!) {
+  objects: scheduledReports(filter: {reportId: $reportId}) {
+    nodes {
+      id
+      title
+      dailyTime
+      attachmentTypes
+      recipientEmails
+      rubrikRecipientUsers {
+        id
+      }
+    }
+  }
+}

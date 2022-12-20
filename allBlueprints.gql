@@ -1,0 +1,7 @@
+query blueprints {
+  objects: allBlueprints {
+    nodes {
+      name
+    }
+  }
+}

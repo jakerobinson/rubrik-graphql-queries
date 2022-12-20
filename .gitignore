@@ -1,0 +1,3 @@
+schema.json
+*.gql_tbd
+.graphqlconfig

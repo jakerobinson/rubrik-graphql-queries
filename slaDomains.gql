@@ -1,0 +1,18 @@
+query slaDomains {
+  objects: slaDomains {
+    nodes {
+      name
+      id
+      ... on GlobalSlaReply {
+        localRetentionLimit {
+          duration
+          unit
+        }
+        baseFrequency {
+          duration
+          unit
+        }
+      }
+    }
+  }
+}

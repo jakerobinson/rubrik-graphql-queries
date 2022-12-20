@@ -1,0 +1,8 @@
+query getSLADomainByName($slaName: String!) {
+  objects: slaDomains(filter: {field: NAME, text: $slaName}) {
+    nodes {
+      name
+      id
+    }
+  }
+}

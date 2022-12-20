@@ -1,0 +1,25 @@
+query events {
+  objects: activitySeriesConnection #(
+  #  filters: {
+  #    lastActivityStatus: [FAILURE,SUCCESS]
+  #    lastUpdatedTimeGt: "2022-11-15T15:21:37.530Z"
+  #  }
+  #) 
+  {
+    nodes {
+	  objectName
+      startTime
+      lastActivityType
+      lastActivityStatus
+      lastUpdated
+      lastEventAddedAt
+      activityConnection(first: 1) {
+        nodes {
+          id
+          message
+          time
+        }
+      }
+    }
+  }
+}
