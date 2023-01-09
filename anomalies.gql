@@ -1,0 +1,20 @@
+query anomalies($beginTime: DateTime!) {
+  objects: workloadAnomalies(beginTime: $beginTime) {
+    nodes {
+      workloadName
+      objectType
+      severity
+      createdFileCount
+      deletedFileCount
+      modifiedFileCount
+      suspiciousFileCount
+      encryption
+      anomalousSnapshotDate
+      anomalyInfo {
+        strainAnalysisInfo {
+          strainId
+        }
+      }
+    }
+  }
+}
