@@ -1,0 +1,10 @@
+query vmSnapshots {
+  objects: vSphereVmNewConnection {
+    nodes {
+      name
+      newestSnapshot {
+        date
+      }
+    }
+  }
+}
