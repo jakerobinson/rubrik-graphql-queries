@@ -1,0 +1,20 @@
+query unprotectedWindowsHosts {
+  objects: physicalHosts(
+    hostRoot: WINDOWS_HOST_ROOT
+    filter: [
+      {field: IS_PROTECTED, texts: "false"}
+    ]
+  ) {
+    nodes {
+      id
+      name
+      effectiveSlaDomain {
+        name
+      }
+      cluster {
+        name
+        id
+      }
+    }
+  }
+}
