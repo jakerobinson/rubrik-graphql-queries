@@ -1,5 +1,5 @@
-mutation downloadReportPdf($id: Int!) {
-  objects: downloadFile(fileType: PDF, reportID: $id) {
+mutation ReportDownloadPDFAsyncMutation($reportId: Int!) {
+  objects: downloadReportPdfAsync(input: {id: $reportId}) {
     jobId
     referenceId
   }
