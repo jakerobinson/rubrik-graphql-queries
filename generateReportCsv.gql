@@ -1,0 +1,6 @@
+mutation generateReportCsv($id: Int!) {
+  objects: downloadReportCsvAsync(input: {id: $id}) {
+    jobId
+    referenceId
+  }
+}
