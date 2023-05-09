@@ -1,0 +1,20 @@
+query unprotectedWindowsHosts {
+  objects: physicalHosts(
+    hostRoot: WINDOWS_HOST_ROOT
+    filter: [
+      {field: PHYSICAL_HOST_CONNECTION_STATUS, texts: "Disconnected"}
+    ]
+  ) {
+    nodes {
+      id
+      name
+      effectiveSlaDomain {
+        name
+      }
+      cluster {
+        name
+        id
+      }
+    }
+  }
+}

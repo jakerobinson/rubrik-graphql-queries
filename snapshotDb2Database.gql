@@ -1,0 +1,11 @@
+mutation snapshotDb2Database($id: String!) {
+  objects: createOnDemandDb2Backup(input: {id: $id}) {
+    startTime
+    status
+    progress
+    links {
+      href
+    }
+    id
+  }
+}

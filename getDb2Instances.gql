@@ -1,0 +1,11 @@
+query getDb2Instances {
+  objects: db2Instances {
+    nodes {
+      name
+      id
+      configuredSlaDomain {
+        name
+      }
+    }
+  }
+}

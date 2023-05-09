@@ -1,0 +1,14 @@
+query getDb2SlaDomains {
+  objects: slaDomains(filter: {field: OBJECT_TYPE, objectTypeList: DB2_OBJECT_TYPE}) {
+    edges {
+      node {
+        name
+        id
+        ... on GlobalSlaReply {
+          id
+          objectTypes
+        }
+      }
+    }
+  }
+}

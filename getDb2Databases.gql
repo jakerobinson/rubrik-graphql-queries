@@ -1,0 +1,11 @@
+query getDb2Databases {
+  objects: db2Databases {
+    nodes {
+      name
+      id
+      configuredSlaDomain {
+        name
+      }
+    }
+  }
+}

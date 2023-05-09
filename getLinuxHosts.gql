@@ -1,0 +1,8 @@
+query getLinuxHosts {
+  objects: physicalHosts(hostRoot: LINUX_HOST_ROOT) {
+    nodes {
+      name
+      id
+    }
+  }
+}
