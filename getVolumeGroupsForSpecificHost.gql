@@ -1,0 +1,15 @@
+query getVolumeGroupsForSpecificHost($name: String!) {
+  objects: physicalHosts(hostRoot: WINDOWS_HOST_ROOT, filter: {field: NAME_EXACT_MATCH, texts: [$name]}) {
+    nodes {
+        name
+        id
+      descendantConnection(typeFilter: VolumeGroup) {
+        nodes {
+          name
+          id
+          objectType
+        }
+      }
+    }
+  }
+}
