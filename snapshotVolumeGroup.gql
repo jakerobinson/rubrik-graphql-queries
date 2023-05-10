@@ -1,0 +1,6 @@
+mutation snapshotVolumeGroup($id: String!, $volumeIds: [String!]!, $slaId: String!) {
+  objects: createOnDemandVolumeGroupBackup(input: {config: {volumeIdsIncludedInSnapshot: $volumeIds, baseOnDemandSnapshotConfig: {slaId: $slaId}}, id: $id}) {
+    id
+    status
+  }
+}
