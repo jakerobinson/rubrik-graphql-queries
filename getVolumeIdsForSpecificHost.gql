@@ -1,0 +1,12 @@
+query getVolumesForSpecificHost($name: String!) {
+  objects: physicalHosts(hostRoot: WINDOWS_HOST_ROOT, filter: {field: NAME_EXACT_MATCH, texts: [$name]}) {
+    nodes {
+      name
+      id
+      hostVolumes {
+        volumeGroupId
+        volumeId
+      }
+    }
+  }
+}
