@@ -1,0 +1,9 @@
+mutation addSingleHost($clusterUuid: String!, $hostname: String!) {
+  objects: bulkRegisterHost(input: {clusterUuid: $clusterUuid, hosts: {hostname: $hostname}}) {
+    data {
+      hostSummary {
+        status
+      }
+    }
+  }
+}
