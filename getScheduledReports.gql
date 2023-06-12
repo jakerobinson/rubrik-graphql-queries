@@ -1,0 +1,20 @@
+query getScheduledReports {
+  objects: scheduledReports {
+    nodes {
+      title
+      id
+      reportId
+      monthlyDate
+      monthlyTime
+      weeklyDays
+      weeklyTime
+      dailyTime
+      rubrikRecipientUsers {
+        username
+        id
+      }
+      recipientEmails
+      attachmentTypes
+    }
+  }
+}
