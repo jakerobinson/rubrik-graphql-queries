@@ -1,0 +1,9 @@
+query getReportByName($name: String!) {
+  objects: reportConnection(filter: {searchTerm: $name})
+  {
+    nodes {
+      name
+      id
+    }
+  }
+}
