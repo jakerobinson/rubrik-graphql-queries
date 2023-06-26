@@ -1,0 +1,8 @@
+query getWebhookByName($name: String) {
+  objects: allWebhooks(name: $name) {
+    nodes {
+      id
+      name
+    }
+  }
+}

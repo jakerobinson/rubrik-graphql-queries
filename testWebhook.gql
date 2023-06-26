@@ -1,0 +1,10 @@
+mutation testwebhook($id: Int!) {
+  objects: testExistingWebhook(input: {id: $id}) {
+    isSuccessful
+    webhookStatus
+    errorInfo {
+      errorMessage
+      statusCode
+    }
+  }
+}
