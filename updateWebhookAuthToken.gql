@@ -1,5 +1,5 @@
 mutation updateWebhookAuthToken($id: Int!, $token: String!) {
-  updateWebhook(input: {id: $id, authInfo: {authType: CUSTOM_HEADER, customHeader: {headerKey: "Authorization", headerValue: $token}}}) {
+  objects: updateWebhook(input: {id: $id, authInfo: {authType: CUSTOM_HEADER, customHeader: {headerKey: "Authorization", headerValue: $token}}}) {
     objects: webhook {
       name
       updatedAt
