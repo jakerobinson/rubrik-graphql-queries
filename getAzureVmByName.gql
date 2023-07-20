@@ -1,0 +1,14 @@
+query getAzureVmByName($name: String!) {
+  objects: azureNativeVirtualMachines(virtualMachineFilters: {
+    nameSubstringFilter: {
+      nameSubstring: $name
+    }
+  }) {
+    edges {
+      node {
+        vmName
+        id
+      }
+    }
+  }
+}
