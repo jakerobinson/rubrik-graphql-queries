@@ -1,0 +1,10 @@
+query activitySeries {
+  objects: activitySeriesConnection(filters: {objectType: WINDOWS_FILESET}) {
+    nodes {
+      objectName
+      objectType
+      dataTransferred
+      logicalSize
+    }
+  }
+}
