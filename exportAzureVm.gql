@@ -1,0 +1,28 @@
+mutation exportAzureVm(
+  $snapshotId: UUID!,
+  $virtualMachineName: String!,
+  $resourceGroupName: String!,
+  $destinationRegion: AzureNativeRegion!,
+  $virtualMachineSize: String!,
+  $subnetNativeId: String!,
+  $shouldExportTags: Boolean!,
+  $shouldPowerOff: Boolean!,
+  $recoveryDiskIds: [UUID!]
+) {
+  objects: startExportAzureNativeVirtualMachineJob(
+    input: {
+      snapshotId: $snapshotId
+      virtualMachineName: $virtualMachineName
+      resourceGroupName: $resourceGroupName
+      destinationRegion: $destinationRegion
+      virtualMachineSize: $virtualMachineSize
+      subnetNativeId: $subnetNativeId
+      shouldExportTags: $shouldExportTags
+      shouldPowerOff: $shouldPowerOff
+      recoveryDiskIds: $recoveryDiskIds
+    }
+  ) {
+    jobId
+    error
+  }
+}
