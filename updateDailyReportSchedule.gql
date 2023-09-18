@@ -1,0 +1,30 @@
+mutation updateDailyReportSchedule($title: String!, $scheduleId: Int!, $dailyTime: LocalTime, $userIds: [String!]!, $reportId: Int!) {
+  objects: updateScheduledReport(
+    input: {
+      id: $scheduleId
+      config: {
+        title: $title
+        reportId: $reportId
+        rubrikRecipientUserIds: $userIds
+        nonRubrikRecipientEmails: []
+        attachmentTypes: REPORT_ATTACHMENT_TYPE_PDF
+        dailyTime: $dailyTime
+      }
+    }) {
+    scheduledReport {
+      title
+      attachmentTypes
+      rubrikRecipientUsers {
+        id
+        email
+      }
+      monthlyDate
+      monthlyTime
+      dailyTime
+      weeklyDays
+      weeklyTime
+      reportId
+      id
+    }
+  }
+}
