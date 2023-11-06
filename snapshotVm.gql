@@ -1,0 +1,7 @@
+mutation snapshotVm($id: String!) {
+  objects: vsphereBulkOnDemandSnapshot(input: {config: {vms: [$id]}}) {
+    responses {
+      id
+    }
+  }
+}
