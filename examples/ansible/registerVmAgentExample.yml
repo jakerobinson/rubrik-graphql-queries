@@ -1,0 +1,61 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - /MY/VAULT/LOCATION
+
+  tasks:
+    - name: Connect RSC
+      uri:
+        url: "{{ rsc_instance.uri }}/api/client_token"
+        method: POST
+        body_format: json
+        body:
+          client_id: "{{ rsc_instance.client_id }}"
+          client_secret: "{{ rsc_instance.client_secret }}"
+      register: rsc
+
+    - name: Get VM ID
+      uri:
+        url: "{{ rsc_instance.uri }}/api/graphql"
+        method: POST
+        headers:
+          content-type: "application/json"
+          authorization: "Bearer {{ rsc.json.access_token }}"
+        body_format: json
+        body: 
+          query: '{{ lookup("file", "{{ ../getVmByName.gql }}") }}'
+          variables: "{{ vm_name }}"
+      register: vm_object
+
+    - name: VM debug
+      debug:
+        var: register_result.json.data
+
+    - name: Register VM Agent
+      uri:
+        url: "{{ rsc_instance.uri }}/api/graphql"
+        method: POST
+        headers:
+          content-type: "application/json"
+          authorization: "Bearer {{ rsc.json.access_token }}"
+        body_format: json
+        body: 
+          query: '{{ lookup("file", "{{ ../registerVmAgent.gql }}") }}'
+          variables: "{{ vm_object.json.data.id }}"
+      register: register_result
+    
+    - name: register debug
+      debug:
+        var: register_result.json.data
+
+    - name: Disconnect RSC
+      uri:
+        url: "{{ rsc_instance.uri}}/api/session"
+        method: DELETE
+        headers:
+          authorization: "{{ rsc.json.access_token }}"
+        status_code: [204]
+ 
