@@ -1,0 +1,8 @@
+mutation setWebSignedCert($clusterId: String! $certId: String!) {
+  setWebSignedCertificate(input: {
+    certificatePayload: {certificateId: $certId}
+    id: $clusterId
+  }) {
+    id
+  }
+}
