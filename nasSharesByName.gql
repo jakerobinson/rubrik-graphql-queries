@@ -1,0 +1,14 @@
+query nasSharesByName($name: [String!]) {
+  objects: nasShares(filter: {field: NAME, texts: $name}) {
+    nodes {
+      id
+      name
+      exportPoint
+      shareType
+      isRelic
+      slaAssignment
+    }
+  }
+}
+
+# the NAME field will search for the text CONTAINING the string you provide. If you want an exact match, change NAME to NAME_EXACT_MATCH
