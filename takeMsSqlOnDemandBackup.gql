@@ -1,0 +1,13 @@
+mutation takeMssqlOnDemandBackup($id: String! $slaId: String) {
+  createOnDemandMssqlBackup(
+    input: {
+      id: $id 
+      config: {
+        baseOnDemandSnapshotConfig: {
+          slaId: $slaId
+        }
+      }
+    }) {
+    id
+  }
+}
