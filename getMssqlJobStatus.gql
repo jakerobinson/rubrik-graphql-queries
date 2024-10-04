@@ -1,0 +1,14 @@
+query getMssqlJobStatus($id: String! $clusterUuid: String!) {
+  mssqlJobStatus(input: {
+  	id: $id
+    clusterUuid: $clusterUuid
+  }) {
+    startTime
+    endTime
+    error {
+      message
+    }
+    progress
+    status
+  }
+}
