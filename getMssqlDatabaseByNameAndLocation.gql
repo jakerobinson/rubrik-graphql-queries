@@ -1,0 +1,18 @@
+query getMssqlDatabaseByNameAndLocation($name: [String!] $location: [String!]) {
+  mssqlDatabases(
+    filter: [{field: NAME_EXACT_MATCH, texts: $name}, {field: IS_RELIC, texts: "false"}, {field: LOCATION, texts: $location}, {field: IS_ARCHIVED, texts: "false"}, {field: IS_REPLICATED, texts: "false"}]
+  ) {
+    nodes {
+      name
+      id
+      logicalPath {
+        name
+        objectType
+      }
+      effectiveSlaDomain {
+        id
+        name
+      }
+    }
+  }
+}
