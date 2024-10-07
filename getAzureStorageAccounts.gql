@@ -1,0 +1,15 @@
+query getAzureStorageAccounts {
+  objects: azureNativeRoot {
+    storageAccounts: objectTypeDescendantConnection(objectTypeFilter: AZURE_STORAGE_ACCOUNT) {
+      nodes {
+        name
+        id
+        region
+        effectiveSlaDomain {
+          name
+          id
+        }
+      }
+    }
+  }
+}
