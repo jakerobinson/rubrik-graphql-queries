@@ -1,0 +1,26 @@
+mutation exportVmFromLatestSnapshot($vmid: String! $datastoreId: String!) {
+  vsphereVmExportSnapshotV2(input: {
+    id: $vmid 
+    config: {
+      datastoreId: $datastoreId
+      shouldRecoverTags: true
+      unregisterVm: false
+      #clusterId: "UUID for Rubrik cluster goes here"
+      #folderId: "vmware folder id goes here"
+      #resourcePoolId: "UUID for vmware resource pool goes here"
+      #shouldUseHotAddProxy: false
+      #mountExportSnapshotJobCommonOptionsV2: {
+      #  disableNetwork: false
+      #  keepMacAddresses: false
+      #  powerOn: false
+      #  removeNetworkDevices: false
+      #  vmName: "Example"
+      #}
+      #requiredRecoveryParameters: {
+      #  recoveryPoint: "2024-11-06"
+      #  snapshotId: "ID of snapshot"
+      #}
+    }
+  }) {
+    id
+  }
