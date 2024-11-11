@@ -1,0 +1,8 @@
+query datastores {
+  vSphereDatastoreConnection {
+    nodes {
+      name
+      id
+    }
+  }
+}
