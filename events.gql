@@ -1,23 +1,43 @@
-query events {
-  objects: activitySeriesConnection #(
-  #  filters: {
-  #    lastActivityStatus: [FAILURE,SUCCESS]
-  #    lastUpdatedTimeGt: "2022-11-15T15:21:37.530Z"
-  #  }
-  #) 
-  {
+query events($since: DateTime) {
+  objects: activitySeriesConnection(filters: {
+  	lastActivityStatus: [FAILURE, SUCCESS, CANCELED]
+  	lastUpdatedTimeGt: $since
+    #severity: [SEVERITY_INFO,SEVERITY_WARNING,SEVERITY_CRITICAL]
+    #lastActivityType: BACKUP
+    #objectType: VMWARE_VM
+  }) {
     nodes {
-	  objectName
+      fid
+      id
       startTime
+      lastUpdated
       lastActivityType
       lastActivityStatus
-      lastUpdated
+      severity
+      objectId
+      objectName
+      objectType
+      clusterUuid
+      clusterName
       lastEventAddedAt
+      lastVerifiedAt
+      isPolarisEventSeries
+      effectiveThroughput
+      dataTransferred
+      logicalSize
+      organizations {
+        name
+      }
+      failureReason
+      causeErrorMessage
+      causeErrorCode
+      causeErrorReason
+      causeErrorRemedy
       activityConnection(first: 1) {
         nodes {
-          id
-          message
           time
+          errorInfo
+          message
         }
       }
     }
