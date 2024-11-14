@@ -1,0 +1,28 @@
+# There is currently no direct filter to search for snapshots that will never expire (aka Forever snaps). 
+# This query gives the retention info for all snapshots of a specific workload object
+
+query foreverSnapshots($workloadId: String!) {
+  objects: snapshotOfSnappablesConnection(sortOrder:DESC snappableIds: [$workloadId]) {
+    nodes {
+      id
+      date
+	... on CdmSnapshot {
+        snapshotRetentionInfo {
+          localInfo {
+            # If date is calculated and time is null, then it is a forever snapshot
+            isExpirationDateCalculated
+            expirationTime
+          }
+          archivalInfos {
+            isExpirationDateCalculated
+            expirationTime
+          }
+          replicationInfos {
+            isExpirationDateCalculated
+            expirationTime
+          }
+        }
+      }
+    }
+  }
+}
