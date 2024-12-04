@@ -5,8 +5,8 @@ Authenticating to the Rubrik Security Cloud API requires a Rubrik Security Cloud
 
 Instantiate RSC client and connect:
 ```
-import rubrik
-rsc = rubrik.Rsc_Client("INSTANCE_NAME.my.rubrik.com","CLIENT ID GOES HERE","CLIENT SECRET GOES HERE")
+import rsc
+rsc = rsc.Client("INSTANCE_NAME.my.rubrik.com","CLIENT ID GOES HERE","CLIENT SECRET GOES HERE")
 ```
 
 ## Query Invocation
