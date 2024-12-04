@@ -1,0 +1,15 @@
+query getSnapshots($objectId: String! $beforeTime: DateTime! $afterTime: DateTime!) {
+  objects: snapshotOfASnappableConnection(
+    workloadId: $objectId
+    timeRange: {
+      start: $afterTime
+      end: $beforeTime
+    }
+  ) {
+    nodes {
+      id
+      date
+      snappableId
+    }
+  }
+}

@@ -1,0 +1,34 @@
+query db2Instances(
+  $name: [String!] = ""
+  $is_relic: [String!] = "false"
+  $is_replica: [String!] = "false"
+) {
+  objects: db2Instances(
+    filter: [
+      {field: NAME texts: $name}
+      {field: IS_RELIC texts: $is_relic}
+      {field: IS_REPLICATED texts: $is_replica}
+    ]
+    ) {
+    nodes {
+      name
+      id
+      effectiveSlaDomain {
+        name
+        id
+      }
+      cluster {
+        name
+        id
+      }
+      primaryClusterUuid
+      hosts {
+        name
+        id
+      }
+      status
+      statusMessage
+      instanceType
+    }
+  }
+}

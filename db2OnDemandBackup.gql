@@ -1,0 +1,7 @@
+mutation db2OnDemandBackup($id: String! $slaId: String) {
+  status: createOnDemandDb2Backup(input: {id: $id config: {slaId: $slaId}}) {
+    id
+    startTime
+    nodeId
+  }
+}

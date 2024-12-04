@@ -1,6 +1,6 @@
 import requests
 
-class Rsc_Client:
+class Client:
     def __init__(self, fqdn, client_id, client_secret):
         self.rsc_instance = fqdn
         self.token_url = f"https://{self.rsc_instance}/api/client_token"
