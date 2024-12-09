@@ -1,0 +1,12 @@
+query getManagedVolumeByName($name: String!) {
+  managedVolumes(filter: {field: NAME_EXACT_MATCH texts: [$name]}) {
+    nodes {
+      name
+      id
+      effectiveSlaDomain {
+        name
+        id
+      }
+    }
+  }
+}

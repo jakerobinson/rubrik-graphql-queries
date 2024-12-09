@@ -1,0 +1,14 @@
+mutation openManagedVolume($id: String!){
+  beginManagedVolumeSnapshot(input: {id: $id}) {
+    snapshotId
+    asyncRequestStatus {
+      id
+      status
+      startTime
+      endTime
+      error {
+        message
+      }
+    }
+  }
+}

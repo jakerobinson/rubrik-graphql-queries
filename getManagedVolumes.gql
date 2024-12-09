@@ -1,0 +1,12 @@
+query getManagedVolumes {
+  managedVolumes {
+    nodes {
+      name
+      id
+      effectiveSlaDomain {
+        name
+        id
+      }
+    }
+  }
+}
