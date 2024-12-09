@@ -1,5 +1,5 @@
 mutation closeManagedVolume($id: String!){
-  endManagedVolumeSnapshot(input: {id: $id}) {
+  endManagedVolumeSnapshot(input: {id: $id params: {isAsync: true}}) {
     asyncRequestStatus {
       id
       status
