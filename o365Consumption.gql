@@ -1,0 +1,46 @@
+query o365Consumption($o365OrgId: UUID $mspOrgId: UUID) {
+  o365Consumption(input: {o365OrgId: $o365OrgId mspOrgId: $mspOrgId}) {
+    consumption {
+      usersProtected
+      fetbConsumed
+      protectedUserDetails {
+        userMailboxProtected
+        sharedMailboxProtected
+        resourceMailboxProtected
+        unlicensedUserMailboxProtected
+        unlicensedSharedMailboxProtected
+        unlicensedResourceMailboxProtected
+      }
+    }
+    consumptionPerMspOrg {
+      mspOrgId
+      consumption {
+        usersProtected
+        fetbConsumed
+        protectedUserDetails {
+          userMailboxProtected
+          sharedMailboxProtected
+          resourceMailboxProtected
+          unlicensedUserMailboxProtected
+          unlicensedSharedMailboxProtected
+          unlicensedResourceMailboxProtected
+        }
+      }
+    }
+    consumptionPerWorkloadType {
+      workloadType
+      consumption {
+        usersProtected
+        fetbConsumed
+        protectedUserDetails {
+          userMailboxProtected
+          sharedMailboxProtected
+          resourceMailboxProtected
+          unlicensedUserMailboxProtected
+          unlicensedSharedMailboxProtected
+          unlicensedResourceMailboxProtected
+        }
+      }
+    }
+  }
+}
