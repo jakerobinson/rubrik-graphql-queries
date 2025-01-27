@@ -1,0 +1,3 @@
+query getRscId($cdmId: String! $clusterId: UUID!) {
+  workloadForeverId(managedId:$cdmId clusterUuid:$clusterId)
+}
