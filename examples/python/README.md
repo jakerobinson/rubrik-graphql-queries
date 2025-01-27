@@ -10,18 +10,12 @@ rsc = rsc.Client("INSTANCE_NAME.my.rubrik.com","CLIENT ID GOES HERE","CLIENT SEC
 ```
 
 ## Query Invocation
-The `invoke_query` method will accept a query string and variables. The query can be read from a file (recommended), or supplied as a string.
-
-Getting a list of SLA Domains:
-```
-result = rsc.invoke_query("{slaDomains { nodes { name id }}}")
-```
+The `invoke` method will accept a query file path string and variables.
 
 Getting a VM using the `getVmByName.gql` file from the examples and supplying query variables:
 ```
-file_contents = open("../../getVmByName.gql")
-query = file_contents.read()
-variables = {'name'= "sh1-fs-01"}
-result = rsc.invoke_query(query,variables)
+query_file = "../../getVmByName.gql"
+variables = {"name": "sh1-fs-01"}
+result = rsc.invoke(query_file,variables)
 ```
 

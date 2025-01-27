@@ -1,75 +1,61 @@
-import requests
+import requests, os
+from oauthlib.oauth2 import BackendApplicationClient
+from requests_oauthlib import OAuth2Session
 
 class Client:
-    def __init__(self, fqdn, client_id, client_secret):
-        self.rsc_instance = fqdn
-        self.token_url = f"https://{self.rsc_instance}/api/client_token"
-        self.gql_endpoint = f"https://{self.rsc_instance}/api/graphql"
-        self.client_id = client_id
-        self.client_secret = client_secret
-        self.token = None
-        self.get_token()
+    def __init__(self):
+        self.gql_endpoint = f"https://{os.getenv('RSC_FQDN')}/api/graphql"
+        self.token = self.get_oauth_token()
 
-    def get_token(self):
-        payload = {
-            'grant_type': 'client_credentials',
-            'client_id': self.client_id,
-            'client_secret': self.client_secret
-        }
-        response = requests.post(self.token_url, data=payload)
-        if response.status_code == 200:
-            self.token = response.json().get('access_token')
-        else:
-            raise Exception('Failed to get token: {}'.format(response.text))
+    def get_oauth_token(self):
+        client = BackendApplicationClient(client_id=os.getenv("RSC_CLIENT_ID"))
+        oauth = OAuth2Session(client=client)
+        token = oauth.fetch_token(
+            token_url=f"https://{os.getenv('RSC_FQDN')}/api/client_token", 
+            client_id=os.getenv("RSC_CLIENT_ID"), 
+            client_secret=os.getenv("RSC_CLIENT_SECRET"),
+            auth=None,
+            include_client_id=True
+            )
+        return token["access_token"]
 
-    def invoke_query(self, query, variables=None):
+    def invoke(self, query_file, variables=None):
         headers = {
             'Authorization': 'Bearer {}'.format(self.token),
             'Content-Type': 'application/json'
         }
-        payload = {'query': query}
-        if variables:
-            payload['variables'] = variables
-        response = requests.post(self.gql_endpoint, json=payload, headers=headers)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception('GraphQL query failed: {}'.format(response.text))
+        query_contents = open(query_file)
+        query = query_contents.read()
 
-    def get_sla_by_name(self, name):
-        query = """
-        query getSlaByName($name: String) {
-            slaDomains(filter: { field: NAME, text: $name }) {
-                nodes {
-                    name
-                    id
-                }
-            }
-        }
-        """
-        variables = {'name': name}
-        return self.invoke_query(query, variables)
 
-    def assign_sla(self, slaDomainAssignType, objectIds, slaOptionalId=None, shouldApplyToExistingSnapshots=None, shouldApplyToNonPolicySnapshots=None, existingSnapshotRetention=None):
-        valid_types = ['noAssignment', 'doNotProtect', 'protectWithSlaId']
-        if slaDomainAssignType not in valid_types:
-            raise ValueError(f"Invalid slaDomainAssignType: {slaDomainAssignType}. Must be one of {valid_types}.")
+        if variables is None:
+            variables = {}
 
-        query = """
-        mutation assignSla($input: AssignSlaInput!) {
-            assignSla(input: $input) {
-                success
-            }
-        }
-        """
-        variables = {
-            'input': {
-                'slaDomainAssignType': slaDomainAssignType,
-                'objectIds': objectIds,
-                'slaOptionalId': slaOptionalId,
-                'shouldApplyToExistingSnapshots': shouldApplyToExistingSnapshots,
-                'shouldApplyToNonPolicySnapshots': shouldApplyToNonPolicySnapshots,
-                'existingSnapshotRetention': existingSnapshotRetention
-            }
-        }
-        return self.invoke_query(query, variables)
+        all_results = []
+        variables['after'] = None  # Start without a cursor
+
+        while True:
+            payload = {'query': query, 'variables': variables}
+            response = requests.post(self.gql_endpoint, json=payload, headers=headers)
+
+            if response.status_code != 200:
+                raise Exception('GraphQL query failed: {}'.format(response.text))
+
+            data = response.json()
+
+            # Extract nodes
+            nodes = data.get('data', {}).get('objects', []).get('nodes', [])
+            all_results.extend(nodes)
+
+            # Get pagination info
+            page_info = data.get('data', {}).get('pageInfo', {})
+            has_next = page_info.get('hasNext', False)
+            end_cursor = page_info.get('endCursor', None)
+
+            if not has_next:
+                break  # Stop if there's no next page
+
+            # Set the 'after' cursor for the next iteration
+            variables['after'] = end_cursor
+
+        return all_results
