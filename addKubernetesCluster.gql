@@ -1,0 +1,15 @@
+mutation WWTKubernetesCluster(
+  $rubrikClusterId: String!
+  $name: String!
+  $kubeConfig: String
+) {
+  objects: addK8sCluster(input: {
+    clusterUuid: $rubrikClusterId
+    config: {
+    	name: $name
+      kubeconfig: $kubeConfig
+    }
+  }) {
+    id
+  }
+}
