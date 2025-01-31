@@ -1,4 +1,4 @@
-mutation WWTKubernetesCluster(
+mutation addKubernetesCluster(
   $rubrikClusterId: String!
   $name: String!
   $kubeConfig: String
@@ -6,8 +6,9 @@ mutation WWTKubernetesCluster(
   objects: addK8sCluster(input: {
     clusterUuid: $rubrikClusterId
     config: {
-    	name: $name
+      name: $name
       kubeconfig: $kubeConfig
+      isAutoPsCreationEnabled: true
     }
   }) {
     id
