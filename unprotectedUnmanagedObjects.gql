@@ -1,0 +1,19 @@
+query unmanagedUnprotectedObjects($clusterId: String!) {
+  objects: unmanagedObjects(input: {clusterUuid: $clusterId objectTypes: [] unmanagedStatuses: [UNPROTECTED,REMOTE_UNPROTECTED] retentionSlaDomainIds: []}) {
+    nodes {
+      name
+      objectType
+      id
+      workloadId
+      snapshotCount
+      unmanagedStatus
+      physicalLocation {
+        name
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
