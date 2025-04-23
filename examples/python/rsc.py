@@ -49,7 +49,7 @@ class Client:
 
             # Get pagination info
             page_info = data.get('data', {}).get('pageInfo', {})
-            has_next = page_info.get('hasNext', False)
+            has_next = page_info.get('hasNextPage', False)
             end_cursor = page_info.get('endCursor', None)
 
             if not has_next:
